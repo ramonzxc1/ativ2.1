@@ -62,6 +62,7 @@ SequentialList::~SequentialList()
 
 int SequentialList::push_front(int value)
 {
+    if(this->size < 0) return -1;
     if(this->size+1 > this->capacity) return -1;
     if(this->size == 0)
     {
@@ -79,6 +80,7 @@ int SequentialList::push_front(int value)
 }
 int SequentialList::push_back(int value)
 {
+    if(this->size < 0) return -1;
     if(this->size+1 > this->capacity) return -1;
     this->size++;
     this->list[this->size-1] = value;
@@ -86,7 +88,10 @@ int SequentialList::push_back(int value)
 }
 int SequentialList::insert(int index, int value)
 {
+    if(this->size < 0) return -1;
+    if(index > this->size) return -1;
     if(index < 0) return -1;
+
     if(index == 0)
     {
         this->push_front(value);
@@ -96,9 +101,7 @@ int SequentialList::insert(int index, int value)
     {
         this->push_back(value);
         return 1;
-    }
-    if(this->size == 0) return -1;
-    if(index > this->size) return -1;
+    }    
     
     this->size++;
     for(int i=this->size-1; i>index; i--)
@@ -110,7 +113,7 @@ int SequentialList::insert(int index, int value)
 }
 int SequentialList::pop_front()
 {
-    if(this->size == 0) return -1;
+    if(this->size <= 0) return -1;
 
     for(int i=0; i<this->size-1; i++)
     {
@@ -122,16 +125,17 @@ int SequentialList::pop_front()
 }
 int SequentialList::pop_back()
 {
-    if(this->size == 0) return -1;
+    if(this->size <= 0) return -1;
     this->size--;
     return 1;
     
 }
 int SequentialList::remove_at(int index)
 {
-    if(this->size == 0) return -1;
+    if(this->size <= 0) return -1;
     if(index < 0) return -1;
     if(index >= this->size) return -1;
+
     if(index == this->size-1)
     {
         this->pop_back();
@@ -143,7 +147,7 @@ int SequentialList::remove_at(int index)
         return 1;
     }
 
-    for(int i=index; i<this->size; i++)
+    for(int i=index; i < this->size-1; i++)
     {
         this->list[i] = this->list[i+1];
     }
@@ -156,7 +160,7 @@ int SequentialList::size_of()
 }
 int SequentialList::find(int value)
 {
-    if(this->size == 0) return -1;
+    if(this->size <= 0) return -1;
 
     // binary search
     int left = 0;
@@ -175,7 +179,7 @@ int SequentialList::find(int value)
 }
 int SequentialList::remove_all()
 {
-    if(this->size == 0) return -1;
+    if(this->size <= 0) return -1;
     this->size = 0;
     return 1;
 }
