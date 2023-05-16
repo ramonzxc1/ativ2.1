@@ -112,7 +112,7 @@ int SequentialList::pop_front()
 {
     if(this->size == 0) return -1;
 
-    for(int i=0; i<this->size; i++)
+    for(int i=0; i<this->size-1; i++)
     {
         this->list[i] = this->list[i+1];
     }
