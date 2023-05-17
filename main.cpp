@@ -48,11 +48,11 @@ SequentialList::SequentialList()
     capacity = 10;
 }
 // Parametrized constructor that allocates an array of int with the given capacity.
-SequentialList::SequentialList(int capacity)
+SequentialList::SequentialList(int input_capacity)
 {
-    list = new int[capacity];
+    list = new int[input_capacity];
     size = 0;
-    capacity = capacity;
+    capacity = input_capacity;
 }
 // Destructor that destroys the array of int that the member list uses.
 SequentialList::~SequentialList()
