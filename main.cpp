@@ -40,7 +40,12 @@ public:
 
 int main()
 {
-    SequentialList list = SequentialList();
+    int capac;
+    cout << "Enter the maximum capacity for the list: ";
+    cin >> capac;
+    SequentialList list = SequentialList(capac);
+
+    //SequentialList list = SequentialList();
     int option;
 
     while(true)
@@ -100,7 +105,7 @@ int SequentialList::push_front(int value)
     check_if_size_is_negative();
     if(size == capacity)
     {
-        cout << "The list is at maximum capacity! Can't push_back anything.\n\n";
+        cout << "The list is at maximum capacity! Can't push_front anything.\n\n";
         return -1;
     }
     if(size == 0)
@@ -152,7 +157,12 @@ int SequentialList::insert(int index, int value)
     {
         push_back(value);
         return 1;
-    }    
+    }
+    if(size == capacity) 
+    {
+        cout << "The list is at maximum capacity! Can't insert anything.\n\n";
+        return -1;
+    }
     
     size++;
     for(int i=size-1; i>index; i--)
@@ -242,17 +252,10 @@ int SequentialList::find(int value)
         return -1;
     }
 
-    // binary search
-    int left = 0;
-    int right = size-1;
-    while(left <= right)
+    // sequential search
+    for(int i=0; i<size; i++)
     {
-        int mid = left + (right-left)/2;
-
-        if(list[mid] == value) return 1;
-        
-        if(list[mid] < value) left = mid + 1;
-        else right = mid - 1;
+        if(list[i] == value) return 1;
     }
 
     return -1; 
