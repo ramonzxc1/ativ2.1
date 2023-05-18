@@ -16,7 +16,7 @@ public:
     // Constructors and destructor.
 
     SequentialList();
-    SequentialList(int capacity);
+    SequentialList(int input_capacity);
     ~SequentialList();
 
     // Methods.
@@ -32,18 +32,59 @@ public:
     int remove_all();
     void sort();
     void reverse();
+    void print();
 };
 
 int main()
 {
-    SequentialList list;
+    SequentialList list = SequentialList();
+
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.push_back(4);
+    list.push_back(5);
+    list.print();
+    list.remove_all();
+    list.print();
+    list.push_front(1);
+    list.push_front(2);
+    list.push_front(3);
+    list.push_front(4);
+    list.push_front(5);
+    list.print();
+    list.pop_back();
+    list.pop_back();
+    list.pop_front();
+    list.pop_front();
+    list.pop_front();
+    list.print();
+    list.insert(0, 1);
+    list.insert(1, 2);
+    list.insert(1, 3);
+    list.insert(1, 4);
+    list.insert(2, 5);
+    list.print();
+    list.remove_at(0);
+    list.print();
+    list.remove_at(2);
+    list.print();
+    cout << "Size of the list: " << list.size_of() << endl;
+    list.sort();
+    list.print();
+    list.reverse();
+    list.print();
+    if(list.find(4) == 1) cout << "Value 4 is in the list.\n";
+    if(list.find(10) == -1) cout << "Value 10 is not in the list.\n";
+
+
     return 0;
 }
 
 // Default constructor that initializes variables with NULL and 0.
 SequentialList::SequentialList()
 {
-    list = NULL;
+    list = new int[10];
     size = 0;
     capacity = 10;
 }
@@ -183,9 +224,28 @@ int SequentialList::remove_all()
     size = 0;
     return 1;
 }
-void SequentialList::sort()
+void SequentialList::sort() // bubble sort
 {
-    
+    int n = size_of();
+    bool swapped;
+    int prov;
+
+    for(int i=0; i < n-1; i++)
+    {
+        swapped = false;
+
+        for(int j=0; j < n-1-i; j++)
+        {
+            if(list[j] > list[j+1])
+            {
+                prov = list[j];
+                list[j] = list[j+1];
+                list[j+1] = prov;
+                swapped = true;
+            }
+        }
+        if(!swapped) break;
+    }
 }
 void SequentialList::reverse()
 {
@@ -196,4 +256,18 @@ void SequentialList::reverse()
 		list[i] = list[size-1-i];
 		list[size-1-i] = temp;
 	}
+}
+void SequentialList::print()
+{
+    if(size == 0) 
+    {
+        cout << "Empty list.\n";
+        return;
+    }
+
+    for(int i=0; i<size_of(); i++)
+    {
+        cout << list[i] << " ";
+    }
+    cout << endl;
 }
